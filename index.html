@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Ownership Detection - User Panel</title>
+    <title>🛡️ AI Theft Detection System - User Panel</title>
     <style>
         /* Reset and Base Styles */
         * {
@@ -17,33 +17,58 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
+            line-height: 1.6;
         }
 
         /* Header Styles */
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
         }
 
         .header h1 {
             color: #2d3748;
-            font-size: 1.8rem;
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
         }
 
         .header p {
             color: #718096;
-            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .features {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .feature-badge {
+            background: linear-gradient(135deg, #4299e1, #48bb78);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
         /* Main Container */
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
         /* Control Panel */
@@ -52,12 +77,12 @@
             backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 2rem;
-            margin-bottom: 2rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            height: fit-content;
         }
 
         .control-section {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
         .control-section:last-child {
             margin-bottom: 0;
@@ -66,7 +91,10 @@
         .control-section h3 {
             color: #2d3748;
             margin-bottom: 1rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         /* Button Styles */
@@ -74,7 +102,7 @@
             background: #4299e1;
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.9rem;
@@ -82,18 +110,22 @@
             transition: all 0.2s ease;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn:hover {
             background: #3182ce;
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .btn-success {
-            background: #48bb78;
+            background: linear-gradient(135deg, #48bb78, #38a169);
         }
         .btn-success:hover {
-            background: #38a169;
+            background: linear-gradient(135deg, #38a169, #2f855a);
         }
 
         .btn-secondary {
@@ -104,10 +136,27 @@
             background: #4a5568;
         }
 
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+        }
+
+        .btn-warning:hover {
+            background: linear-gradient(135deg, #dd6b20, #c05621);
+        }
+
         /* File Input Styling */
         .file-input-wrapper {
             position: relative;
             display: inline-block;
+            margin-bottom: 1rem;
         }
 
         .file-input {
@@ -124,8 +173,16 @@
             backdrop-filter: blur(10px);
             border-radius: 12px;
             padding: 2rem;
-            margin-bottom: 2rem;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-section h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .video-container {
@@ -143,40 +200,33 @@
         .video-element {
             width: 100%;
             height: auto;
-            max-height: 500px;
+            max-height: 400px;
         }
 
         .video-placeholder {
             color: #a0aec0;
             font-size: 1.1rem;
             text-align: center;
-        }
-
-        /* Results Section */
-        .results-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
             padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
-        .results-content {
+        /* Status Display */
+        .status-display {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
             background: #f7fafc;
             border-radius: 8px;
-            padding: 1.5rem;
             border-left: 4px solid #4299e1;
-            min-height: 100px;
         }
 
-        /* Status Indicator */
         .status-indicator {
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
-            margin-right: 0.5rem;
         }
 
         .status-idle {
@@ -190,6 +240,13 @@
 
         .status-error {
             background: #f56565;
+            animation: pulse 2s infinite;
+        }
+
+        .status-alarm {
+            background: #f56565;
+            animation: urgent-pulse 1s infinite;
+            box-shadow: 0 0 10px rgba(245, 101, 101, 0.5);
         }
 
         @keyframes pulse {
@@ -198,11 +255,17 @@
             100% { opacity: 1; }
         }
 
+        @keyframes urgent-pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 10px;
             background: #e2e8f0;
-            border-radius: 4px;
+            border-radius: 5px;
             overflow: hidden;
             margin: 1rem 0;
             display: none;
@@ -213,90 +276,341 @@
             background: linear-gradient(90deg, #4299e1, #48bb78);
             width: 0%;
             transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.2) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255,255,255,0.2) 50%, 
+                rgba(255,255,255,0.2) 75%, 
+                transparent 75%);
+            background-size: 20px 20px;
+            animation: progress-animate 1s linear infinite;
+        }
+
+        @keyframes progress-animate {
+            0% { transform: translateX(-20px); }
+            100% { transform: translateX(20px); }
+        }
+
+        /* Results Section */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .results-section h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .results-content {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-height: 150px;
+        }
+
+        .log-entry {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .log-entry:last-child {
+            border-bottom: none;
+        }
+
+        .log-timestamp {
+            color: #718096;
+            font-size: 0.8rem;
+        }
+
+        .alert-item {
+            background: linear-gradient(135deg, #fed7d7, #feb2b2);
+            border: 2px solid #f56565;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            animation: alert-glow 2s infinite;
+        }
+
+        @keyframes alert-glow {
+            0% { box-shadow: 0 0 5px rgba(245, 101, 101, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(245, 101, 101, 0.6); }
+            100% { box-shadow: 0 0 5px rgba(245, 101, 101, 0.3); }
+        }
+
+        .ownership-item {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            border: 2px solid #48bb78;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .confidence-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f56565, #ed8936, #48bb78);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Alarm Controls */
+        .alarm-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .alarm-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #f7fafc;
+            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .alarm-active {
+            border-color: #f56565;
+            background: #fed7d7;
+            animation: alarm-blink 1s infinite;
+        }
+
+        @keyframes alarm-blink {
+            0% { background: #fed7d7; }
+            50% { background: #fbb6ce; }
+            100% { background: #fed7d7; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-grid, .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .features {
+                justify-content: center;
+            }
+        }
+
+        /* Custom Scrollbar */
+        .results-section::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .results-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .results-section::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .results-section::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>🛡️ AI Ownership Detection</h1>
-        <p>Upload a video file to analyze object ownership by individuals.</p>
+        <h1>🛡️ AI Theft Detection System</h1>
+        <p>Advanced real-time object ownership tracking and theft detection powered by AI</p>
+        <div class="features">
+            <span class="feature-badge">👁️ Real-time Detection</span>
+            <span class="feature-badge">🔗 Ownership Tracking</span>
+            <span class="feature-badge">🚨 Theft Alerts</span>
+            <span class="feature-badge">📊 Analytics Dashboard</span>
+        </div>
     </header>
 
     <div class="container">
-        <section class="control-panel">
-            <div class="control-section">
-                <h3>📹 Upload Video</h3>
-                <div class="file-input-wrapper">
-                    <button class="btn btn-secondary">Select Video File to Analyze</button>
-                    <input type="file" id="videoFile" class="file-input" accept="video/*">
+        <div class="main-grid">
+            <!-- Control Panel -->
+            <section class="control-panel">
+                <div class="control-section">
+                    <h3>📹 Video Upload</h3>
+                    <div class="file-input-wrapper">
+                        <button class="btn btn-secondary">📁 Select Video File to Analyze</button>
+                        <input type="file" id="videoFile" class="file-input" accept="video/*">
+                    </div>
+                    <button id="testApiBtn" class="btn">🧪 Test API Connection</button>
                 </div>
-                 <button id="testApiBtn" class="btn">🧪 Test API Connection</button>
-            </div>
-            
-            <div class="control-section">
-                <h3>📊 Analysis Status</h3>
-                <span id="statusIndicator" class="status-indicator status-idle"></span>
-                <span id="statusText">System Ready. Select a file to begin.</span>
-            </div>
-        </section>
-
-        <section class="video-section">
-            <h3>📺 Video Preview</h3>
-            <div class="video-container" id="videoContainer">
-                <div class="video-placeholder" id="videoPlaceholder">
-                    Select a video file to see a preview here.
+                
+                <div class="control-section">
+                    <h3>📊 System Status</h3>
+                    <div class="status-display">
+                        <span id="statusIndicator" class="status-indicator status-idle"></span>
+                        <span id="statusText">System Ready. Select a file to begin analysis.</span>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="progress-bar" id="progressBar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </section>
 
-        <section class="results-section">
-            <h3>📋 Analysis Results</h3>
-            <div class="results-content" id="resultsContent">
-                <p>Results will appear here after the analysis is complete.</p>
-            </div>
-        </section>
+                <div class="control-section">
+                    <h3>🚨 Alarm Controls</h3>
+                    <div class="alarm-controls">
+                        <button id="enableAlarmBtn" class="btn btn-warning">🔔 Enable Alarms</button>
+                        <button id="disableAlarmBtn" class="btn btn-secondary">🔕 Disable Alarms</button>
+                        <div id="alarmStatus" class="alarm-status">
+                            <span class="status-indicator status-idle"></span>
+                            <span>Alarms Disabled</span>
+                        </div>
+                    </div>
+                    <button id="testAlarmBtn" class="btn btn-danger">🔊 Test Alarm Sound</button>
+                </div>
+            </section>
+
+            <!-- Video Preview -->
+            <section class="video-section">
+                <h3>📺 Video Preview</h3>
+                <div class="video-container" id="videoContainer">
+                    <div class="video-placeholder" id="videoPlaceholder">
+                        🎬 Select a video file to see preview and begin analysis
+                    </div>
+                </div>
+                
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Results Sections -->
+        <div class="results-grid">
+            <section class="results-section">
+                <h3>📝 System Logs</h3>
+                <div class="results-content" id="systemLogs">
+                    <div class="log-entry">
+                        <div class="log-timestamp">[System Ready]</div>
+                        <div>Theft detection system initialized and ready for video analysis.</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="results-section">
+                <h3>⚠️ Security Alerts</h3>
+                <div class="results-content" id="securityAlerts">
+                    <p style="color: #718096; text-align: center; padding: 2rem;">
+                        🔍 No security events detected yet.<br>
+                        Upload and analyze a video to see theft detection results here.
+                    </p>
+                </div>
+            </section>
+        </div>
     </div>
 
+    <!-- Hidden Audio Element for Alarms -->
+    <audio id="alarmSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmYcBTWN3+/Fd29ERl3g5+WNjJyUh24xMRZkqNn3rwkFJH7O8tCNmJyFfEhMYrTg7q/j/" data-volume="0.3">
+    </audio>
+
     <script>
-        class SurveillanceApp {
+        class TheftDetectionApp {
             constructor() {
-                // IMPORTANT: This is your unique backend URL
+                // Backend URL - update this for your deployment
                 this.API_URL = 'https://mozzic-ai-ownership-detection.hf.space';
 
                 // State management
                 this.jobId = null;
                 this.pollingInterval = null;
                 this.currentFile = null;
+                this.alarmEnabled = false;
+                this.alertCount = 0;
 
                 this.initializeElements();
                 this.bindEvents();
+                this.initializeAlarmSound();
             }
 
             initializeElements() {
                 this.elements = {
                     videoFile: document.getElementById('videoFile'),
                     testApiBtn: document.getElementById('testApiBtn'),
+                    enableAlarmBtn: document.getElementById('enableAlarmBtn'),
+                    disableAlarmBtn: document.getElementById('disableAlarmBtn'),
+                    testAlarmBtn: document.getElementById('testAlarmBtn'),
                     videoContainer: document.getElementById('videoContainer'),
                     videoPlaceholder: document.getElementById('videoPlaceholder'),
                     statusIndicator: document.getElementById('statusIndicator'),
                     statusText: document.getElementById('statusText'),
-                    resultsContent: document.getElementById('resultsContent'),
+                    alarmStatus: document.getElementById('alarmStatus'),
+                    systemLogs: document.getElementById('systemLogs'),
+                    securityAlerts: document.getElementById('securityAlerts'),
                     progressBar: document.getElementById('progressBar'),
-                    progressFill: document.getElementById('progressFill')
+                    progressFill: document.getElementById('progressFill'),
+                    alarmSound: document.getElementById('alarmSound')
                 };
             }
 
             bindEvents() {
                 this.elements.videoFile.addEventListener('change', (e) => this.handleVideoUpload(e));
                 this.elements.testApiBtn.addEventListener('click', () => this.testApiConnection());
+                this.elements.enableAlarmBtn.addEventListener('click', () => this.enableAlarms());
+                this.elements.disableAlarmBtn.addEventListener('click', () => this.disableAlarms());
+                this.elements.testAlarmBtn.addEventListener('click', () => this.testAlarm());
+            }
+
+            initializeAlarmSound() {
+                // Create a simple alarm tone using Web Audio API
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                this.elements.alarmSound.volume = 0.3;
             }
 
             async testApiConnection() {
                 this.updateStatus('Testing API connection...', 'active');
+                this.addSystemLog('Testing connection to backend server...');
+                
                 try {
                     const response = await fetch(`${this.API_URL}/health`);
                     if (!response.ok) throw new Error(`Server responded with status ${response.status}`);
@@ -304,16 +618,59 @@
                     const data = await response.json();
                     if (data.status === 'healthy' && data.model_loaded) {
                         this.updateStatus('API connection successful!', 'active');
-                        alert('✅ API connection successful! The backend is ready.');
+                        this.addSystemLog('✅ Backend connection successful - All systems ready');
+                        alert('✅ API connection successful! The theft detection system is ready.');
                     } else {
-                        throw new Error('Health check failed or model not loaded.');
+                        throw new Error('Health check failed or models not loaded.');
                     }
                 } catch (error) {
                     this.updateStatus('API connection failed', 'error');
+                    this.addSystemLog(`❌ Connection failed: ${error.message}`);
                     alert(`❌ API connection failed: ${error.message}`);
                 } finally {
                     setTimeout(() => this.updateStatus('System Ready', 'idle'), 3000);
                 }
+            }
+
+            enableAlarms() {
+                this.alarmEnabled = true;
+                this.updateAlarmStatus('Alarms Enabled', 'active');
+                this.addSystemLog('🔔 Theft detection alarms enabled');
+            }
+
+            disableAlarms() {
+                this.alarmEnabled = false;
+                this.updateAlarmStatus('Alarms Disabled', 'idle');
+                this.addSystemLog('🔕 Theft detection alarms disabled');
+            }
+
+            testAlarm() {
+                this.addSystemLog('🔊 Testing alarm sound...');
+                this.playAlarmSound();
+                this.showTestAlert();
+            }
+
+            playAlarmSound() {
+                if (this.alarmEnabled) {
+                    try {
+                        this.elements.alarmSound.currentTime = 0;
+                        this.elements.alarmSound.play();
+                    } catch (e) {
+                        console.warn('Could not play alarm sound:', e);
+                    }
+                }
+            }
+
+            showTestAlert() {
+                const testAlert = {
+                    frame: 0,
+                    thief_id: 999,
+                    victim_id: 888,
+                    object_id: 777,
+                    confidence: 0.95,
+                    type: 'TEST_ALERT'
+                };
+                this.displaySecurityAlert(testAlert, true);
             }
 
             handleVideoUpload(event) {
@@ -322,11 +679,12 @@
 
                 this.currentFile = file;
                 this.displayVideoFile(URL.createObjectURL(file));
-                this.startAnalysis(); // Automatically start analysis on upload
+                this.addSystemLog(`📁 Video file selected: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+                this.startAnalysis();
             }
 
             displayVideoFile(videoUrl) {
-                this.elements.videoContainer.innerHTML = ''; // Clear previous video
+                this.elements.videoContainer.innerHTML = '';
                 const video = document.createElement('video');
                 video.src = videoUrl;
                 video.controls = true;
@@ -340,18 +698,17 @@
                     return;
                 }
                 
-                // Clear previous results and stop any old polling
                 if (this.pollingInterval) clearInterval(this.pollingInterval);
-                this.clearResults();
+                this.clearSecurityAlerts();
 
                 this.updateStatus('Uploading video...', 'active');
                 this.showProgress(10);
+                this.addSystemLog('📤 Uploading video to server for analysis...');
 
                 const formData = new FormData();
                 formData.append('video', this.currentFile);
 
                 try {
-                    // Step 1: Upload the video to get a job ID
                     const uploadResponse = await fetch(`${this.API_URL}/upload`, {
                         method: 'POST',
                         body: formData,
@@ -367,14 +724,14 @@
                     
                     this.updateStatus('Processing video...', 'active');
                     this.showProgress(25);
+                    this.addSystemLog(`🎯 Analysis started - Job ID: ${this.jobId}`);
 
-                    // Step 2: Start polling for the result
                     this.pollForStatus();
 
                 } catch (error) {
                     console.error('Analysis error:', error);
                     this.updateStatus('Analysis failed', 'error');
-                    this.displayError(`Analysis failed: ${error.message}`);
+                    this.addSystemLog(`❌ Analysis failed: ${error.message}`);
                     this.hideProgress();
                 }
             }
@@ -395,64 +752,189 @@
                         const statusData = await statusResponse.json();
                         
                         this.updateStatus(`Processing... ${Math.round(statusData.progress)}%`, 'active');
-                        this.showProgress(25 + (statusData.progress * 0.75)); // Scale progress from 25% to 100%
+                        this.showProgress(25 + (statusData.progress * 0.75));
+
+                        // Update system logs
+                        if (statusData.logs && statusData.logs.length > 0) {
+                            statusData.logs.forEach(log => {
+                                if (!this.hasLogEntry(log)) {
+                                    this.addSystemLog(log);
+                                }
+                            });
+                        }
 
                         if (statusData.status === 'completed') {
                             clearInterval(this.pollingInterval);
-                            this.updateStatus('Processing complete!', 'active');
+                            this.updateStatus('Analysis complete!', 'active');
                             this.showProgress(100);
+                            this.addSystemLog('✅ Video analysis completed successfully');
+                            this.displayAnalysisResults(statusData.analysis_summary);
                             this.displayDownloadLink();
                         } else if (statusData.status === 'failed') {
                             clearInterval(this.pollingInterval);
                             this.updateStatus('Analysis failed', 'error');
-                            this.displayError(statusData.error || 'The analysis process failed on the server.');
+                            this.addSystemLog(`❌ Analysis failed: ${statusData.error || 'Unknown error'}`);
                         }
                     } catch (error) {
                         clearInterval(this.pollingInterval);
                         this.updateStatus('Connection lost', 'error');
-                        this.displayError(`Error checking status: ${error.message}`);
+                        this.addSystemLog(`⚠️ Connection error: ${error.message}`);
                     }
-                }, 3000); // Check every 3 seconds
+                }, 3000);
+            }
+
+            displayAnalysisResults(analysisData) {
+                if (!analysisData) return;
+
+                this.addSystemLog(`Analysis Results Summary:`);
+                this.addSystemLog(`   - Established Ownerships: ${analysisData.established_ownerships}`);
+                this.addSystemLog(`   - Theft Events Detected: ${analysisData.total_theft_events}`);
+
+                // Display ownership information
+                if (analysisData.ownership_summary && analysisData.ownership_summary.length > 0) {
+                    analysisData.ownership_summary.forEach(ownership => {
+                        this.addSystemLog(`   - Person ${ownership.owner_id} owns Object ${ownership.object_id} (${(ownership.confidence * 100).toFixed(1)}% confidence)`);
+                    });
+                }
+
+                // Display theft events
+                if (analysisData.theft_events && analysisData.theft_events.length > 0) {
+                    this.addSystemLog(`SECURITY ALERTS DETECTED:`);
+                    analysisData.theft_events.forEach((event, index) => {
+                        this.addSystemLog(`   Alert ${index + 1}: Person ${event.thief_id} attempted theft from Person ${event.victim_id} at frame ${event.frame}`);
+                        this.displaySecurityAlert(event);
+                        
+                        // Trigger alarm for real theft events
+                        if (this.alarmEnabled && event.type === 'THEFT_DETECTED') {
+                            this.playAlarmSound();
+                            this.updateStatus('THEFT ALERT!', 'alarm');
+                        }
+                    });
+                } else {
+                    this.addSystemLog(`No theft incidents detected - All clear!`);
+                }
+            }
+
+            displaySecurityAlert(event, isTest = false) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert-item';
+                
+                const alertType = isTest ? 'TEST ALERT' : 'THEFT DETECTED';
+                const alertIcon = isTest ? '🔧' : '🚨';
+                
+                alertDiv.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <strong style="color: #c53030; font-size: 1.1rem;">${alertIcon} ${alertType}</strong>
+                        <span style="color: #718096; font-size: 0.9rem;">Frame ${event.frame}</span>
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong>Incident:</strong> Person ${event.thief_id} ${isTest ? 'testing system' : 'attempting to steal from Person ' + event.victim_id}
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong>Object:</strong> Item ID ${event.object_id}
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <strong>Confidence:</strong> ${(event.confidence * 100).toFixed(1)}%
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: ${event.confidence * 100}%"></div>
+                        </div>
+                    </div>
+                    ${isTest ? '<div style="color: #4a5568; font-style: italic;">This is a test alert to verify system functionality.</div>' : ''}
+                `;
+                
+                this.elements.securityAlerts.innerHTML = '';
+                this.elements.securityAlerts.appendChild(alertDiv);
+                this.alertCount++;
+
+                if (!isTest) {
+                    // Update alarm status
+                    this.updateAlarmStatus(`Alert #${this.alertCount}`, 'alarm');
+                }
             }
 
             displayDownloadLink() {
                 const downloadUrl = `${this.API_URL}/download/${this.jobId}`;
                 
-                this.elements.resultsContent.innerHTML = `
-                    <h4>✅ Analysis Complete!</h4>
-                    <p>Your processed video is ready for download.</p>
-                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer">
-                        <button class="btn btn-success">⬇️ Download Processed Video</button>
-                    </a>
-                    <button id="cleanupBtn" class="btn btn-secondary">🗑️ Clean Up Server Files</button>
+                this.addSystemLog(`Processed video ready for download`);
+                
+                // Create download section
+                const downloadSection = document.createElement('div');
+                downloadSection.style.cssText = `
+                    margin-top: 1rem; 
+                    padding: 1rem; 
+                    background: linear-gradient(135deg, #c6f6d5, #9ae6b4); 
+                    border-radius: 8px; 
+                    text-align: center;
                 `;
+                
+                downloadSection.innerHTML = `
+                    <h4 style="color: #2d3748; margin-bottom: 1rem;">Analysis Complete!</h4>
+                    <p style="margin-bottom: 1rem;">Your processed video with theft detection overlays is ready.</p>
+                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer">
+                        <button class="btn btn-success">Download Processed Video</button>
+                    </a>
+                    <button id="cleanupBtn" class="btn btn-secondary">Clean Up Server Files</button>
+                `;
+
+                this.elements.systemLogs.appendChild(downloadSection);
 
                 document.getElementById('cleanupBtn').addEventListener('click', async () => {
                     try {
                         await fetch(`${this.API_URL}/cleanup/${this.jobId}`, { method: 'DELETE' });
-                        alert('Job files cleaned up from the server.');
-                        this.clearResults();
+                        this.addSystemLog('Server files cleaned up successfully');
+                        downloadSection.remove();
                     } catch (e) {
-                        alert('Could not clean up files. They will be removed automatically later.');
+                        this.addSystemLog('Could not clean up files - they will be removed automatically');
                     }
                 });
             }
 
-            displayError(message) {
-                this.elements.resultsContent.innerHTML = `
-                    <div style="color: #f56565; padding: 1rem; background: #fed7d7; border-radius: 6px;">
-                        <strong>❌ Error:</strong> ${message}
-                    </div>
+            clearSecurityAlerts() {
+                this.elements.securityAlerts.innerHTML = `
+                    <p style="color: #718096; text-align: center; padding: 2rem;">
+                        No security events detected yet.<br>
+                        Analysis in progress - alerts will appear here if theft is detected.
+                    </p>
                 `;
+                this.alertCount = 0;
             }
 
-            clearResults() {
-                this.elements.resultsContent.innerHTML = '<p>Results will appear here after the analysis is complete.</p>';
+            addSystemLog(message) {
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                
+                const timestamp = new Date().toLocaleTimeString();
+                logEntry.innerHTML = `
+                    <div class="log-timestamp">[${timestamp}]</div>
+                    <div>${message}</div>
+                `;
+                
+                this.elements.systemLogs.appendChild(logEntry);
+                this.elements.systemLogs.scrollTop = this.elements.systemLogs.scrollHeight;
+            }
+
+            hasLogEntry(message) {
+                const logEntries = this.elements.systemLogs.querySelectorAll('.log-entry');
+                return Array.from(logEntries).some(entry => entry.textContent.includes(message));
             }
 
             updateStatus(text, status) {
                 this.elements.statusText.textContent = text;
                 this.elements.statusIndicator.className = `status-indicator status-${status}`;
+            }
+
+            updateAlarmStatus(text, status) {
+                const indicator = this.elements.alarmStatus.querySelector('.status-indicator');
+                const textSpan = this.elements.alarmStatus.querySelector('span:last-child');
+                
+                indicator.className = `status-indicator status-${status}`;
+                textSpan.textContent = text;
+                
+                if (status === 'alarm') {
+                    this.elements.alarmStatus.classList.add('alarm-active');
+                } else {
+                    this.elements.alarmStatus.classList.remove('alarm-active');
+                }
             }
 
             showProgress(percentage) {
@@ -468,8 +950,9 @@
             }
         }
 
+        // Initialize the application
         document.addEventListener('DOMContentLoaded', () => {
-            window.app = new SurveillanceApp();
+            window.app = new TheftDetectionApp();
         });
     </script>
 </body>
