@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Security Surveillance - User Panel</title>
+    <title>AI Ownership Detection - User Panel</title>
     <style>
         /* Reset and Base Styles */
         * {
@@ -59,6 +59,9 @@
         .control-section {
             margin-bottom: 1.5rem;
         }
+        .control-section:last-child {
+            margin-bottom: 0;
+        }
 
         .control-section h3 {
             color: #2d3748;
@@ -86,34 +89,11 @@
             transform: translateY(-1px);
         }
 
-        .btn:disabled {
-            background: #a0aec0;
-            cursor: not-allowed;
-            transform: none;
-        }
-
         .btn-success {
             background: #48bb78;
         }
-
         .btn-success:hover {
             background: #38a169;
-        }
-
-        .btn-danger {
-            background: #f56565;
-        }
-
-        .btn-danger:hover {
-            background: #e53e3e;
-        }
-
-        .btn-warning {
-            background: #ed8936;
-        }
-
-        .btn-warning:hover {
-            background: #dd6b20;
         }
 
         .btn-secondary {
@@ -172,13 +152,6 @@
             text-align: center;
         }
 
-        /* Analysis Controls */
-        .analysis-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
         /* Results Section */
         .results-section {
             background: rgba(255, 255, 255, 0.95);
@@ -195,26 +168,6 @@
             padding: 1.5rem;
             border-left: 4px solid #4299e1;
             min-height: 100px;
-        }
-
-        .score-display {
-            background: #e6fffa;
-            border: 1px solid #81e6d9;
-            border-radius: 6px;
-            padding: 1rem;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        .score-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #2d3748;
-        }
-
-        .score-label {
-            color: #718096;
-            margin-top: 0.5rem;
         }
 
         /* Status Indicator */
@@ -245,328 +198,246 @@
             100% { opacity: 1; }
         }
 
-        /* Action Buttons Section */
-        .action-buttons {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            text-align: center;
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+            display: none;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .control-panel,
-            .video-section,
-            .results-section,
-            .action-buttons {
-                padding: 1.5rem;
-            }
-            
-            .analysis-controls {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-                margin-right: 0;
-            }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4299e1, #48bb78);
+            width: 0%;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header class="header">
-        <h1>🛡️ AI Security Surveillance</h1>
-        <p>Advanced video analysis and threat detection system</p>
+        <h1>🛡️ AI Ownership Detection</h1>
+        <p>Upload a video file to analyze object ownership by individuals.</p>
     </header>
 
     <div class="container">
-        <!-- Control Panel -->
         <section class="control-panel">
             <div class="control-section">
-                <h3>📹 Video Source</h3>
-                <button id="webcamBtn" class="btn">Connect Webcam</button>
+                <h3>📹 Upload Video</h3>
                 <div class="file-input-wrapper">
-                    <button class="btn btn-secondary">Upload Video File</button>
+                    <button class="btn btn-secondary">Select Video File to Analyze</button>
                     <input type="file" id="videoFile" class="file-input" accept="video/*">
                 </div>
-                <button id="disconnectBtn" class="btn btn-danger" disabled>Disconnect</button>
+                 <button id="testApiBtn" class="btn">🧪 Test API Connection</button>
             </div>
             
             <div class="control-section">
                 <h3>📊 Analysis Status</h3>
                 <span id="statusIndicator" class="status-indicator status-idle"></span>
-                <span id="statusText">System Ready</span>
+                <span id="statusText">System Ready. Select a file to begin.</span>
             </div>
         </section>
 
-        <!-- Video Display Section -->
         <section class="video-section">
-            <h3>📺 Video Feed</h3>
+            <h3>📺 Video Preview</h3>
             <div class="video-container" id="videoContainer">
                 <div class="video-placeholder" id="videoPlaceholder">
-                    No video source connected. Please connect a webcam or upload a video file.
+                    Select a video file to see a preview here.
                 </div>
             </div>
             
-            <div class="analysis-controls">
-                <button id="startAnalysisBtn" class="btn btn-success" disabled>🔍 Start Analysis</button>
-                <button id="stopAnalysisBtn" class="btn btn-danger" disabled>⏹️ Stop Analysis</button>
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
             </div>
         </section>
 
-        <!-- Results Section -->
         <section class="results-section">
             <h3>📋 Analysis Results</h3>
             <div class="results-content" id="resultsContent">
-                <p>No analysis results yet. Start video analysis to see detection results here.</p>
+                <p>Results will appear here after the analysis is complete.</p>
             </div>
-            
-            <div class="score-display" id="scoreDisplay" style="display: none;">
-                <div class="score-value" id="scoreValue">--</div>
-                <div class="score-label">Threat Detection Score</div>
-            </div>
-        </section>
-
-        <!-- Action Buttons -->
-        <section class="action-buttons">
-            <h3>🚨 Quick Actions</h3>
-            <button class="btn btn-warning">🚨 Alert Center</button>
-            <button class="btn btn-secondary">📚 History</button>
         </section>
     </div>
 
     <script>
-        // Application State Management
         class SurveillanceApp {
             constructor() {
-                this.isAnalyzing = false;
-                this.currentStream = null;
-                this.currentVideo = null;
-                this.apiEndpoint = 'https://my-backend-placeholder/api/detect';
-                
+                // IMPORTANT: This is your unique backend URL
+                this.API_URL = 'https://mozzic-ai-ownership-detection.hf.space';
+
+                // State management
+                this.jobId = null;
+                this.pollingInterval = null;
+                this.currentFile = null;
+
                 this.initializeElements();
                 this.bindEvents();
             }
 
-            // Initialize DOM elements
             initializeElements() {
                 this.elements = {
-                    webcamBtn: document.getElementById('webcamBtn'),
                     videoFile: document.getElementById('videoFile'),
-                    disconnectBtn: document.getElementById('disconnectBtn'),
-                    startAnalysisBtn: document.getElementById('startAnalysisBtn'),
-                    stopAnalysisBtn: document.getElementById('stopAnalysisBtn'),
+                    testApiBtn: document.getElementById('testApiBtn'),
                     videoContainer: document.getElementById('videoContainer'),
                     videoPlaceholder: document.getElementById('videoPlaceholder'),
                     statusIndicator: document.getElementById('statusIndicator'),
                     statusText: document.getElementById('statusText'),
                     resultsContent: document.getElementById('resultsContent'),
-                    scoreDisplay: document.getElementById('scoreDisplay'),
-                    scoreValue: document.getElementById('scoreValue')
+                    progressBar: document.getElementById('progressBar'),
+                    progressFill: document.getElementById('progressFill')
                 };
             }
 
-            // Bind event listeners
             bindEvents() {
-                this.elements.webcamBtn.addEventListener('click', () => this.connectWebcam());
                 this.elements.videoFile.addEventListener('change', (e) => this.handleVideoUpload(e));
-                this.elements.disconnectBtn.addEventListener('click', () => this.disconnect());
-                this.elements.startAnalysisBtn.addEventListener('click', () => this.startAnalysis());
-                this.elements.stopAnalysisBtn.addEventListener('click', () => this.stopAnalysis());
+                this.elements.testApiBtn.addEventListener('click', () => this.testApiConnection());
             }
 
-            // Connect to webcam
-            async connectWebcam() {
+            async testApiConnection() {
+                this.updateStatus('Testing API connection...', 'active');
                 try {
-                    this.updateStatus('Connecting to webcam...', 'active');
+                    const response = await fetch(`${this.API_URL}/health`);
+                    if (!response.ok) throw new Error(`Server responded with status ${response.status}`);
                     
-                    const stream = await navigator.mediaDevices.getUserMedia({ 
-                        video: { width: 1280, height: 720 }, 
-                        audio: false 
-                    });
-                    
-                    this.currentStream = stream;
-                    this.displayVideoStream(stream);
-                    this.updateStatus('Webcam connected', 'active');
-                    this.enableAnalysisControls();
-                    
+                    const data = await response.json();
+                    if (data.status === 'healthy' && data.model_loaded) {
+                        this.updateStatus('API connection successful!', 'active');
+                        alert('✅ API connection successful! The backend is ready.');
+                    } else {
+                        throw new Error('Health check failed or model not loaded.');
+                    }
                 } catch (error) {
-                    console.error('Error accessing webcam:', error);
-                    this.updateStatus('Failed to connect webcam', 'error');
-                    alert('Unable to access webcam. Please check permissions.');
+                    this.updateStatus('API connection failed', 'error');
+                    alert(`❌ API connection failed: ${error.message}`);
+                } finally {
+                    setTimeout(() => this.updateStatus('System Ready', 'idle'), 3000);
                 }
             }
 
-            // Handle video file upload
             handleVideoUpload(event) {
                 const file = event.target.files[0];
                 if (!file) return;
 
-                this.updateStatus('Loading video file...', 'active');
-                
-                const videoUrl = URL.createObjectURL(file);
-                this.displayVideoFile(videoUrl);
-                this.updateStatus('Video file loaded', 'active');
-                this.enableAnalysisControls();
+                this.currentFile = file;
+                this.displayVideoFile(URL.createObjectURL(file));
+                this.startAnalysis(); // Automatically start analysis on upload
             }
 
-            // Display video stream from webcam
-            displayVideoStream(stream) {
-                this.clearVideoDisplay();
-                
-                const video = document.createElement('video');
-                video.srcObject = stream;
-                video.autoplay = true;
-                video.muted = true;
-                video.className = 'video-element';
-                
-                this.elements.videoContainer.appendChild(video);
-                this.currentVideo = video;
-            }
-
-            // Display uploaded video file
             displayVideoFile(videoUrl) {
-                this.clearVideoDisplay();
-                
+                this.elements.videoContainer.innerHTML = ''; // Clear previous video
                 const video = document.createElement('video');
                 video.src = videoUrl;
                 video.controls = true;
                 video.className = 'video-element';
-                
                 this.elements.videoContainer.appendChild(video);
-                this.currentVideo = video;
             }
 
-            // Clear video display
-            clearVideoDisplay() {
-                this.elements.videoContainer.innerHTML = '';
-                this.elements.videoPlaceholder.style.display = 'none';
-            }
-
-            // Disconnect video source
-            disconnect() {
-                if (this.currentStream) {
-                    this.currentStream.getTracks().forEach(track => track.stop());
-                    this.currentStream = null;
-                }
-                
-                if (this.currentVideo) {
-                    this.currentVideo.remove();
-                    this.currentVideo = null;
-                }
-                
-                this.elements.videoContainer.innerHTML = '';
-                this.elements.videoContainer.appendChild(this.elements.videoPlaceholder);
-                this.elements.videoPlaceholder.style.display = 'block';
-                
-                this.updateStatus('System Ready', 'idle');
-                this.disableAnalysisControls();
-                this.clearResults();
-            }
-
-            // Start analysis
             async startAnalysis() {
-                if (!this.currentVideo) {
-                    alert('Please connect a video source first.');
+                if (!this.currentFile) {
+                    alert('No file selected.');
                     return;
                 }
+                
+                // Clear previous results and stop any old polling
+                if (this.pollingInterval) clearInterval(this.pollingInterval);
+                this.clearResults();
 
-                this.isAnalyzing = true;
-                this.updateStatus('Analysis in progress...', 'active');
-                this.elements.startAnalysisBtn.disabled = true;
-                this.elements.stopAnalysisBtn.disabled = false;
+                this.updateStatus('Uploading video...', 'active');
+                this.showProgress(10);
+
+                const formData = new FormData();
+                formData.append('video', this.currentFile);
 
                 try {
-                    // Simulate API call to backend
-                    const response = await this.callAnalysisAPI();
-                    this.displayResults(response);
+                    // Step 1: Upload the video to get a job ID
+                    const uploadResponse = await fetch(`${this.API_URL}/upload`, {
+                        method: 'POST',
+                        body: formData,
+                    });
+
+                    if (!uploadResponse.ok) {
+                        const errorData = await uploadResponse.json();
+                        throw new Error(errorData.error || `Upload failed with status ${uploadResponse.status}`);
+                    }
+
+                    const uploadData = await uploadResponse.json();
+                    this.jobId = uploadData.job_id;
                     
+                    this.updateStatus('Processing video...', 'active');
+                    this.showProgress(25);
+
+                    // Step 2: Start polling for the result
+                    this.pollForStatus();
+
                 } catch (error) {
                     console.error('Analysis error:', error);
                     this.updateStatus('Analysis failed', 'error');
-                    this.displayError('Failed to connect to analysis service. Please try again.');
+                    this.displayError(`Analysis failed: ${error.message}`);
+                    this.hideProgress();
                 }
             }
 
-            // Stop analysis
-            stopAnalysis() {
-                this.isAnalyzing = false;
-                this.updateStatus('Analysis stopped', 'idle');
-                this.elements.startAnalysisBtn.disabled = false;
-                this.elements.stopAnalysisBtn.disabled = true;
+            pollForStatus() {
+                this.pollingInterval = setInterval(async () => {
+                    if (!this.jobId) {
+                        clearInterval(this.pollingInterval);
+                        return;
+                    }
+
+                    try {
+                        const statusResponse = await fetch(`${this.API_URL}/status/${this.jobId}`);
+                        if (!statusResponse.ok) {
+                            throw new Error(`Status check failed with status ${statusResponse.status}`);
+                        }
+
+                        const statusData = await statusResponse.json();
+                        
+                        this.updateStatus(`Processing... ${Math.round(statusData.progress)}%`, 'active');
+                        this.showProgress(25 + (statusData.progress * 0.75)); // Scale progress from 25% to 100%
+
+                        if (statusData.status === 'completed') {
+                            clearInterval(this.pollingInterval);
+                            this.updateStatus('Processing complete!', 'active');
+                            this.showProgress(100);
+                            this.displayDownloadLink();
+                        } else if (statusData.status === 'failed') {
+                            clearInterval(this.pollingInterval);
+                            this.updateStatus('Analysis failed', 'error');
+                            this.displayError(statusData.error || 'The analysis process failed on the server.');
+                        }
+                    } catch (error) {
+                        clearInterval(this.pollingInterval);
+                        this.updateStatus('Connection lost', 'error');
+                        this.displayError(`Error checking status: ${error.message}`);
+                    }
+                }, 3000); // Check every 3 seconds
             }
 
-            // Simulate API call to backend
-            async callAnalysisAPI() {
-                // Simulate network delay
-                await new Promise(resolve => setTimeout(resolve, 2000));
+            displayDownloadLink() {
+                const downloadUrl = `${this.API_URL}/download/${this.jobId}`;
                 
-                // Since this is a placeholder API, we'll simulate a response
-                // In real implementation, this would be:
-                // const response = await fetch(this.apiEndpoint, { method: 'POST', ... });
-                // return await response.json();
-                
-                // Simulated response data
-                return {
-                    status: 'success',
-                    timestamp: new Date().toISOString(),
-                    detections: [
-                        { type: 'person', confidence: 0.95, bbox: [100, 150, 200, 400] },
-                        { type: 'vehicle', confidence: 0.87, bbox: [300, 200, 500, 350] }
-                    ],
-                    threat_score: Math.floor(Math.random() * 100),
-                    analysis_duration: '2.3s',
-                    frame_count: 30
-                };
-            }
-
-            // Display analysis results
-            displayResults(data) {
-                const resultsHtml = `
-                    <h4>🔍 Detection Results</h4>
-                    <p><strong>Status:</strong> ${data.status}</p>
-                    <p><strong>Timestamp:</strong> ${new Date(data.timestamp).toLocaleString()}</p>
-                    <p><strong>Analysis Duration:</strong> ${data.analysis_duration}</p>
-                    <p><strong>Frames Processed:</strong> ${data.frame_count}</p>
-                    
-                    <h4>🎯 Detected Objects</h4>
-                    <ul>
-                        ${data.detections.map(detection => 
-                            `<li>${detection.type} (${Math.round(detection.confidence * 100)}% confidence)</li>`
-                        ).join('')}
-                    </ul>
-                    
-                    <div style="margin-top: 1rem; padding: 1rem; background: #f0f8ff; border-radius: 6px;">
-                        <strong>Raw API Response:</strong>
-                        <pre style="margin-top: 0.5rem; font-size: 0.8rem; overflow-x: auto;">${JSON.stringify(data, null, 2)}</pre>
-                    </div>
+                this.elements.resultsContent.innerHTML = `
+                    <h4>✅ Analysis Complete!</h4>
+                    <p>Your processed video is ready for download.</p>
+                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer">
+                        <button class="btn btn-success">⬇️ Download Processed Video</button>
+                    </a>
+                    <button id="cleanupBtn" class="btn btn-secondary">🗑️ Clean Up Server Files</button>
                 `;
-                
-                this.elements.resultsContent.innerHTML = resultsHtml;
-                
-                // Display threat score
-                this.elements.scoreValue.textContent = data.threat_score;
-                this.elements.scoreDisplay.style.display = 'block';
-                
-                // Update score color based on threat level
-                const scoreElement = this.elements.scoreValue;
-                if (data.threat_score < 30) {
-                    scoreElement.style.color = '#48bb78'; // Green
-                } else if (data.threat_score < 70) {
-                    scoreElement.style.color = '#ed8936'; // Orange
-                } else {
-                    scoreElement.style.color = '#f56565'; // Red
-                }
+
+                document.getElementById('cleanupBtn').addEventListener('click', async () => {
+                    try {
+                        await fetch(`${this.API_URL}/cleanup/${this.jobId}`, { method: 'DELETE' });
+                        alert('Job files cleaned up from the server.');
+                        this.clearResults();
+                    } catch (e) {
+                        alert('Could not clean up files. They will be removed automatically later.');
+                    }
+                });
             }
 
-            // Display error message
             displayError(message) {
                 this.elements.resultsContent.innerHTML = `
                     <div style="color: #f56565; padding: 1rem; background: #fed7d7; border-radius: 6px;">
@@ -575,42 +446,30 @@
                 `;
             }
 
-            // Clear results
             clearResults() {
-                this.elements.resultsContent.innerHTML = '<p>No analysis results yet. Start video analysis to see detection results here.</p>';
-                this.elements.scoreDisplay.style.display = 'none';
+                this.elements.resultsContent.innerHTML = '<p>Results will appear here after the analysis is complete.</p>';
             }
 
-            // Update system status
             updateStatus(text, status) {
                 this.elements.statusText.textContent = text;
                 this.elements.statusIndicator.className = `status-indicator status-${status}`;
             }
 
-            // Enable analysis controls
-            enableAnalysisControls() {
-                this.elements.startAnalysisBtn.disabled = false;
-                this.elements.disconnectBtn.disabled = false;
+            showProgress(percentage) {
+                this.elements.progressBar.style.display = 'block';
+                this.elements.progressFill.style.width = `${percentage}%`;
             }
 
-            // Disable analysis controls
-            disableAnalysisControls() {
-                this.elements.startAnalysisBtn.disabled = true;
-                this.elements.stopAnalysisBtn.disabled = true;
-                this.elements.disconnectBtn.disabled = true;
+            hideProgress() {
+                setTimeout(() => {
+                    this.elements.progressBar.style.display = 'none';
+                    this.elements.progressFill.style.width = '0%';
+                }, 1000);
             }
         }
 
-        // Initialize the application when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            new SurveillanceApp();
-        });
-
-        // Handle page unload to clean up resources
-        window.addEventListener('beforeunload', () => {
-            if (window.surveillanceApp && window.surveillanceApp.currentStream) {
-                window.surveillanceApp.currentStream.getTracks().forEach(track => track.stop());
-            }
+            window.app = new SurveillanceApp();
         });
     </script>
 </body>
