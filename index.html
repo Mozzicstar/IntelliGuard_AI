@@ -423,6 +423,12 @@
             100% { background: #fed7d7; }
         }
 
+        @keyframes alarm-flash {
+            0% { background-color: rgba(245, 101, 101, 0); }
+            50% { background-color: rgba(245, 101, 101, 0.1); }
+            100% { background-color: rgba(245, 101, 101, 0); }
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .main-grid, .results-grid {
@@ -599,6 +605,12 @@
                 this.elements.enableAlarmBtn.addEventListener('click', () => this.enableAlarms());
                 this.elements.disableAlarmBtn.addEventListener('click', () => this.disableAlarms());
                 this.elements.testAlarmBtn.addEventListener('click', () => this.testAlarm());
+                
+                // Fix the file input button click
+                document.querySelector('.file-input-wrapper .btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.elements.videoFile.click();
+                });
             }
 
             initializeAlarmSound() {
