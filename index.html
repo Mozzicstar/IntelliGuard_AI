@@ -144,14 +144,6 @@
             background: linear-gradient(135deg, #e53e3e, #c53030);
         }
 
-        .btn-warning {
-            background: linear-gradient(135deg, #ed8936, #dd6b20);
-        }
-
-        .btn-warning:hover {
-            background: linear-gradient(135deg, #dd6b20, #c05621);
-        }
-        
         .btn:disabled {
             background: #a0aec0;
             cursor: not-allowed;
@@ -249,23 +241,11 @@
             background: #f56565;
             animation: pulse 2s infinite;
         }
-        
-        .status-alarm {
-            background: #f56565;
-            animation: urgent-pulse 1s infinite;
-            box-shadow: 0 0 10px rgba(245, 101, 101, 0.5);
-        }
 
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.5; }
             100% { opacity: 1; }
-        }
-        
-        @keyframes urgent-pulse {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(1.1); }
-            100% { opacity: 1; transform: scale(1); }
         }
 
         .progress-bar {
@@ -368,13 +348,6 @@
         .alert-item {
             background: linear-gradient(135deg, #fed7d7, #feb2b2);
             border: 2px solid #f56565;
-            animation: alert-glow 2s infinite, fadeIn 0.5s ease;
-        }
-        
-        @keyframes alert-glow {
-            0% { box-shadow: 0 0 5px rgba(245, 101, 101, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(245, 101, 101, 0.6); }
-            100% { box-shadow: 0 0 5px rgba(245, 101, 101, 0.3); }
         }
 
         .ownership-item {
@@ -425,7 +398,7 @@
 </head>
 <body>
     <header class="header">
-        <h1>🛡️ Optimized AI Theft Detection</h1>
+        <h1>🛡️ AI Theft Detection System</h1>
         <p>Advanced real-time object ownership tracking and theft detection powered by AI</p>
         <div class="features">
             <span class="feature-badge">⚡ Chunked Uploading</span>
@@ -441,7 +414,7 @@
                 <div class="control-section">
                     <h3>📹 Video Upload</h3>
                     <div class="file-input-wrapper">
-                        <button class="btn btn-secondary" id="selectFileBtn">📁 Select Video File to Analyze</button>
+                        <button class="btn btn-secondary" id="selectFileBtn">📁 Select Video File</button>
                         <input type="file" id="videoFile" class="file-input" accept="video/*" disabled>
                     </div>
                     <button id="testApiBtn" class="btn">🧪 Test API Connection</button>
@@ -506,19 +479,19 @@
         </div>
     </div>
 
-    <audio id="alarmSound" preload="auto" src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YWE0U29NRQADAgEICxQbFBYUDg0NDg0NDg0NDQ0NDQ0NDg0NDQ0NDQ0NDg0NDQ0NDQ0NDg0NDg0NDQ0NDQ0NDQ0NDg0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ=~"></audio>
+    <audio id="alarmSound" preload="auto" src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YWE0U29NRQADAgEICxQbFBYUDg0NDg0NDg0NDQ0NDQ0NDQ0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ-"></audio>
 
     <script>
         class TheftDetectionApp {
             constructor() {
-                // IMPORTANT: Update this URL if your backend is running elsewhere
-                this.API_URL = 'http://127.0.0.1:7860'; 
+                // IMPORTANT: This URL will be set dynamically to your Hugging Face Space URL
+                this.API_URL = window.location.origin;
                 this.CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunks
 
                 this.jobId = null;
                 this.pollingInterval = null;
                 this.currentFile = null;
-                this.displayedLogs = new Set(); // To prevent duplicate log entries
+                this.displayedLogs = new Set();
                 
                 this.initializeElements();
                 this.bindEvents();
@@ -549,8 +522,6 @@
                 this.elements.testAlarmBtn.addEventListener('click', () => this.testAlarm());
             }
 
-            // --- API and State Management ---
-
             async testApiConnection() {
                 this.updateStatus('Testing API connection...', 'active');
                 this.addSystemLog('Testing connection to backend server...');
@@ -564,14 +535,14 @@
                         this.updateStatus('API connection successful! Ready for analysis.', 'active');
                         this.addSystemLog('✅ Backend connection successful - All systems ready.');
                         alert('✅ API connection successful! The theft detection system is ready.');
-                        this.elements.videoFile.disabled = false; // Enable file input
+                        this.elements.videoFile.disabled = false;
                     } else {
                         throw new Error('Health check failed or models not loaded.');
                     }
                 } catch (error) {
                     this.updateStatus('API connection failed', 'error');
                     this.addSystemLog(`❌ Connection failed: ${error.message}`);
-                    alert(`❌ API connection failed. Ensure the backend server is running on ${this.API_URL}. Error: ${error.message}`);
+                    alert(`❌ API connection failed. Ensure the Space is running. Error: ${error.message}`);
                     this.elements.videoFile.disabled = true;
                 }
             }
@@ -591,7 +562,7 @@
             async uploadFileInChunks() {
                 const file = this.currentFile;
                 const totalChunks = Math.ceil(file.size / this.CHUNK_SIZE);
-                const fileId = this.uuidv4(); // Unique ID for this upload
+                const fileId = this.uuidv4();
                 
                 this.showProgress(0);
                 this.addSystemLog(`Preparing to upload ${totalChunks} chunks...`);
@@ -617,14 +588,14 @@
                         
                         const data = await response.json();
                         const uploadProgress = (data.chunk_index + 1) / data.total_chunks * 100;
-                        this.showProgress(uploadProgress * 0.5); // Upload is first 50% of total progress
+                        this.showProgress(uploadProgress * 0.5);
 
                         if (data.job_id) {
                             this.jobId = data.job_id;
                             this.addSystemLog(`✅ All chunks uploaded. Job ID: ${this.jobId}`);
                             this.updateStatus('Processing video...', 'active');
                             this.pollForStatus();
-                            break; // Exit loop once job_id is received
+                            break;
                         }
                     }
                 } catch (error) {
@@ -646,9 +617,8 @@
                         const data = await response.json();
                         
                         this.updateStatus(`Processing... ${Math.round(data.progress)}%`, 'active');
-                        this.showProgress(50 + (data.progress * 0.5)); // Processing is second 50%
+                        this.showProgress(50 + (data.progress * 0.5));
 
-                        // Display new logs
                         if (data.logs) {
                             data.logs.forEach(log => this.addSystemLog(log));
                         }
@@ -670,10 +640,8 @@
                         this.updateStatus('Connection lost', 'error');
                         this.addSystemLog(`⚠️ Connection error during status check: ${error.message}`);
                     }
-                }, 2000); // Poll every 2 seconds
+                }, 2000);
             }
-
-            // --- UI Update Methods ---
 
             resetUIForNewAnalysis() {
                 if (this.pollingInterval) clearInterval(this.pollingInterval);
@@ -699,7 +667,7 @@
             }
 
             addSystemLog(message) {
-                if (this.displayedLogs.has(message)) return; // Avoid duplicates
+                if (this.displayedLogs.has(message)) return;
                 this.displayedLogs.add(message);
 
                 if (this.elements.systemLogs.querySelector('.results-placeholder')) {
@@ -727,7 +695,6 @@
             displayAnalysisResults(summary) {
                 if (!summary) return this.addSystemLog("⚠️ Analysis summary not available.");
 
-                // Display Theft Events
                 const alertsContainer = this.elements.securityAlerts;
                 alertsContainer.innerHTML = '';
                 if (summary.theft_events && summary.theft_events.length > 0) {
@@ -748,13 +715,12 @@
                             <small>Confidence: ${(event.confidence * 100).toFixed(1)}%</small>
                         `;
                         alertsContainer.appendChild(alertDiv);
-                        this.playAlarmSound(); // Play sound for each detected theft
+                        this.playAlarmSound();
                     });
                 } else {
                     alertsContainer.innerHTML = '<div class="results-placeholder"><p>✅ No theft incidents detected.</p></div>';
                 }
 
-                // Display Ownership Summary
                 const ownershipContainer = this.elements.ownershipSummary;
                 ownershipContainer.innerHTML = '';
                 if (summary.ownership_summary && summary.ownership_summary.length > 0) {
@@ -822,7 +788,6 @@
                 this.elements.alarmSound.play().catch(e => console.warn("Could not play sound:", e));
             }
             
-            // --- Helpers ---
             uuidv4() {
                 return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
                     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
