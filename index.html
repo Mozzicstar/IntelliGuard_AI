@@ -3,800 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛡️ Optimized AI Theft Detection</title>
+    <title>🛡️ AI Ownership Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
             color: #333;
-            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-
-        /* Header Styles */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1.5rem 2rem;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 20px 0;
         }
-
-        .header h1 {
-            color: #2d3748;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+        
+        header {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
         }
-
-        .header p {
-            color: #718096;
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            opacity: 0.9;
             font-size: 1.1rem;
         }
-
-        .features {
+        
+        .main-content {
+            padding: 30px;
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 25px;
         }
-
-        .feature-badge {
-            background: linear-gradient(135deg, #4299e1, #48bb78);
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
+        
+        .upload-section {
+            border: 2px dashed #4b6cb7;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            background: #f8f9ff;
         }
-
-        /* Main Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
+        
+        .upload-section:hover {
+            background: #eef0ff;
+            border-color: #182848;
         }
-
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
+        
+        .upload-icon {
+            font-size: 3.5rem;
+            color: #4b6cb7;
+            margin-bottom: 15px;
         }
-
-        /* Control Panel */
-        .control-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            height: fit-content;
+        
+        .upload-text {
+            margin-bottom: 20px;
+            color: #4a5568;
         }
-
-        .control-section {
-            margin-bottom: 2rem;
-        }
-        .control-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .control-section h3 {
-            color: #2d3748;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Button Styles */
+        
         .btn {
             background: #4299e1;
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 12px 25px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 500;
-            transition: all 0.2s ease;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
+            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
-
+        
         .btn:hover {
             background: #3182ce;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
+        
         .btn-success {
             background: linear-gradient(135deg, #48bb78, #38a169);
         }
+        
         .btn-success:hover {
             background: linear-gradient(135deg, #38a169, #2f855a);
         }
-
-        .btn-secondary {
-            background: #718096;
-        }
-
-        .btn-secondary:hover {
-            background: #4a5568;
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, #f56565, #e53e3e);
-        }
-
-        .btn-danger:hover {
-            background: linear-gradient(135deg, #e53e3e, #c53030);
-        }
-
-        .btn:disabled {
-            background: #a0aec0;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* File Input Styling */
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
+        
         .file-input {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
+            display: none;
         }
-
-        /* Video Display Area */
-        .video-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        
+        .results-section {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
         }
-
-        .video-section h3 {
-            color: #2d3748;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .video-container {
-            position: relative;
-            background: #000;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 1rem;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .video-element {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-        }
-
-        .video-placeholder {
-            color: #a0aec0;
-            font-size: 1.1rem;
+        
+        .results-placeholder {
             text-align: center;
-            padding: 2rem;
+            color: #718096;
+            padding: 30px;
         }
-
-        /* Status Display */
-        .status-display {
+        
+        .result-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .confidence-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4299e1, #48bb78);
+            border-radius: 4px;
+        }
+        
+        .status {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding: 1rem;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
             background: #f7fafc;
             border-radius: 8px;
-            border-left: 4px solid #4299e1;
         }
-
-        .status-indicator {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-        }
-
-        .status-idle {
             background: #a0aec0;
         }
-
-        .status-active {
+        
+        .status-dot.active {
             background: #48bb78;
-            animation: pulse 2s infinite;
+            animation: pulse 1.5s infinite;
         }
-
-        .status-error {
+        
+        .status-dot.error {
             background: #f56565;
-            animation: pulse 2s infinite;
         }
-
+        
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.5; }
             100% { opacity: 1; }
         }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: #e2e8f0;
-            border-radius: 5px;
-            overflow: hidden;
-            margin: 1rem 0;
-            display: none;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4299e1, #48bb78);
-            width: 0%;
-            transition: width 0.3s ease;
-            position: relative;
-        }
         
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%);
-            background-size: 20px 20px;
-            animation: progress-animate 1s linear infinite;
-        }
-        
-        @keyframes progress-animate {
-            0% { background-position: 20px 0; }
-            100% { background-position: 0 0; }
-        }
-
-        /* Results Section */
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .results-section {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .results-section h3 {
-            color: #2d3748;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-            position: sticky;
-            top: -2rem;
-            background: rgba(255, 255, 255, 0.95);
-            padding-top: 1rem;
-        }
-        
-        .results-content {
-            padding-top: 1rem;
-        }
-
-        .log-entry {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #e2e8f0;
-            font-family: 'Courier New', monospace;
+        .api-info {
+            background: #edf2f7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
             font-size: 0.9rem;
         }
-
-        .log-entry:last-child {
-            border-bottom: none;
-        }
-
-        .log-timestamp {
-            color: #718096;
-            font-size: 0.8rem;
-        }
-
-        .alert-item, .ownership-item {
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            animation: fadeIn 0.5s ease;
-        }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .alert-item {
-            background: linear-gradient(135deg, #fed7d7, #feb2b2);
-            border: 2px solid #f56565;
-        }
-
-        .ownership-item {
-            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
-            border: 2px solid #48bb78;
-        }
-
-        .confidence-bar {
-            width: 100%;
-            height: 8px;
+        .api-url {
+            font-family: monospace;
             background: #e2e8f0;
+            padding: 5px 10px;
             border-radius: 4px;
-            margin-top: 0.5rem;
-            overflow: hidden;
+            word-break: break-all;
         }
-
-        .confidence-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #f56565, #ed8936, #48bb78);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-        
-        .results-placeholder {
-            color: #718096;
-            text-align: center;
-            padding: 2rem;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Custom Scrollbar */
-        .results-section::-webkit-scrollbar { width: 6px; }
-        .results-section::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 3px; }
-        .results-section::-webkit-scrollbar-thumb { background: #888; border-radius: 3px; }
-        .results-section::-webkit-scrollbar-thumb:hover { background: #555; }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>🛡️ AI Theft Detection System</h1>
-        <p>Advanced real-time object ownership tracking and theft detection powered by AI</p>
-        <div class="features">
-            <span class="feature-badge">⚡ Chunked Uploading</span>
-            <span class="feature-badge">👁️ Real-time Detection</span>
-            <span class="feature-badge">🔗 Ownership Tracking</span>
-            <span class="feature-badge">🚨 Instant Alerts</span>
-        </div>
-    </header>
-
     <div class="container">
-        <div class="main-grid">
-            <section class="control-panel">
-                <div class="control-section">
-                    <h3>📹 Video Upload</h3>
-                    <div class="file-input-wrapper">
-                        <button class="btn btn-secondary" id="selectFileBtn">📁 Select Video File</button>
-                        <input type="file" id="videoFile" class="file-input" accept="video/*" disabled>
-                    </div>
-                    <button id="testApiBtn" class="btn">🧪 Test API Connection</button>
+        <header>
+            <h1><i class="fas fa-shield-alt"></i> AI Ownership Detection</h1>
+            <p>Detect AI-generated content and verify ownership</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
                 </div>
-                
-                <div class="control-section">
-                    <h3>📊 System Status</h3>
-                    <div class="status-display">
-                        <span id="statusIndicator" class="status-indicator status-idle"></span>
-                        <span id="statusText">System Ready. Test API connection to begin.</span>
-                    </div>
-                </div>
-
-                <div class="control-section">
-                    <h3>🚨 Alarm Controls</h3>
-                    <button id="testAlarmBtn" class="btn btn-danger">🔊 Test Alarm Sound</button>
-                </div>
-            </section>
-
-            <section class="video-section">
-                <h3>📺 Video Preview</h3>
-                <div class="video-container" id="videoContainer">
-                    <div class="video-placeholder" id="videoPlaceholder">
-                        🎬 Select a video file to see a preview and begin analysis
-                    </div>
-                </div>
-                
-                <div class="progress-bar" id="progressBar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-            </section>
-        </div>
-
-        <div class="results-grid">
-            <section class="results-section">
-                <h3>📝 System Logs</h3>
-                <div class="results-content" id="systemLogs">
-                     <div class="results-placeholder">
-                        <p>System logs will appear here during the analysis process.</p>
-                     </div>
-                </div>
-            </section>
-
-            <section class="results-section">
-                <h3>⚠️ Security Alerts</h3>
-                <div class="results-content" id="securityAlerts">
-                    <div class="results-placeholder">
-                        <p>🚨 No security events detected yet.</p>
-                        <p style="font-size: 0.9rem;">Theft detection alerts will appear here.</p>
-                    </div>
-                </div>
-            </section>
+                <h2 class="upload-text">Upload Content for Analysis</h2>
+                <input type="file" id="fileInput" class="file-input" accept=".txt,.pdf,.jpg,.jpeg,.png">
+                <button class="btn" id="selectFileBtn">
+                    <i class="fas fa-file"></i> Select File
+                </button>
+                <button class="btn btn-success" id="analyzeBtn" disabled>
+                    <i class="fas fa-search"></i> Analyze Content
+                </button>
+            </div>
             
-            <section class="results-section">
-                <h3>🤝 Ownership Summary</h3>
-                <div class="results-content" id="ownershipSummary">
+            <div class="status">
+                <div class="status-dot" id="statusDot"></div>
+                <div id="statusText">Ready to connect to your Hugging Face Space</div>
+            </div>
+            
+            <div class="api-info">
+                <p><strong>Connected to:</strong></p>
+                <p class="api-url" id="apiUrl">https://mozzic-ai-ownership-detection.hf.space</p>
+                <p>This interface is now connected to your Hugging Face Space for AI ownership detection.</p>
+            </div>
+            
+            <div class="results-section">
+                <h3><i class="fas fa-list"></i> Analysis Results</h3>
+                <div id="resultsContainer">
                     <div class="results-placeholder">
-                        <p>✅ Established ownerships will be summarized here.</p>
+                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px;"></i>
+                        <p>Analysis results will appear here</p>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
 
-    <audio id="alarmSound" preload="auto" src="data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YWE0U29NRQADAgEICxQbFBYUDg0NDg0NDg0NDQ0NDQ0NDQ0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDg0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ-"></audio>
-
     <script>
-        class TheftDetectionApp {
-            constructor() {
-                // IMPORTANT: This URL will be set dynamically to your Hugging Face Space URL
-                this.API_URL = window.location.origin;
-                this.CHUNK_SIZE = 5 * 1024 * 1024; // 5MB chunks
-
-                this.jobId = null;
-                this.pollingInterval = null;
-                this.currentFile = null;
-                this.displayedLogs = new Set();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set the API endpoint to your Hugging Face Space
+            const API_URL = "https://mozzic-ai-ownership-detection.hf.space";
+            document.getElementById('apiUrl').textContent = API_URL;
+            
+            const fileInput = document.getElementById('fileInput');
+            const selectFileBtn = document.getElementById('selectFileBtn');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            let selectedFile = null;
+            
+            // Event listeners
+            selectFileBtn.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', (event) => {
+                if (event.target.files.length > 0) {
+                    selectedFile = event.target.files[0];
+                    analyzeBtn.disabled = false;
+                    statusText.textContent = `File selected: ${selectedFile.name}`;
+                }
+            });
+            
+            analyzeBtn.addEventListener('click', async () => {
+                if (!selectedFile) return;
                 
-                this.initializeElements();
-                this.bindEvents();
-            }
-
-            initializeElements() {
-                this.elements = {
-                    videoFile: document.getElementById('videoFile'),
-                    selectFileBtn: document.getElementById('selectFileBtn'),
-                    testApiBtn: document.getElementById('testApiBtn'),
-                    testAlarmBtn: document.getElementById('testAlarmBtn'),
-                    videoContainer: document.getElementById('videoContainer'),
-                    statusIndicator: document.getElementById('statusIndicator'),
-                    statusText: document.getElementById('statusText'),
-                    systemLogs: document.getElementById('systemLogs'),
-                    securityAlerts: document.getElementById('securityAlerts'),
-                    ownershipSummary: document.getElementById('ownershipSummary'),
-                    progressBar: document.getElementById('progressBar'),
-                    progressFill: document.getElementById('progressFill'),
-                    alarmSound: document.getElementById('alarmSound'),
-                };
-            }
-
-            bindEvents() {
-                this.elements.testApiBtn.addEventListener('click', () => this.testApiConnection());
-                this.elements.selectFileBtn.addEventListener('click', () => this.elements.videoFile.click());
-                this.elements.videoFile.addEventListener('change', (e) => this.handleFileSelect(e));
-                this.elements.testAlarmBtn.addEventListener('click', () => this.testAlarm());
-            }
-
-            async testApiConnection() {
-                this.updateStatus('Testing API connection...', 'active');
-                this.addSystemLog('Testing connection to backend server...');
+                // Update status
+                statusDot.className = 'status-dot active';
+                statusText.textContent = 'Analyzing content...';
+                analyzeBtn.disabled = true;
                 
                 try {
-                    const response = await fetch(`${this.API_URL}/health`);
-                    if (!response.ok) throw new Error(`Server responded with status ${response.status}`);
+                    // Create form data
+                    const formData = new FormData();
+                    formData.append('file', selectedFile);
+                    
+                    // Make request to Hugging Face API
+                    const response = await fetch(API_URL + '/api/predict', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status}`);
+                    }
                     
                     const data = await response.json();
-                    if (data.status === 'healthy' && data.model_loaded) {
-                        this.updateStatus('API connection successful! Ready for analysis.', 'active');
-                        this.addSystemLog('✅ Backend connection successful - All systems ready.');
-                        alert('✅ API connection successful! The theft detection system is ready.');
-                        this.elements.videoFile.disabled = false;
-                    } else {
-                        throw new Error('Health check failed or models not loaded.');
-                    }
+                    
+                    // Display results
+                    displayResults(data);
+                    
+                    // Update status
+                    statusDot.className = 'status-dot';
+                    statusText.textContent = 'Analysis complete!';
+                    
                 } catch (error) {
-                    this.updateStatus('API connection failed', 'error');
-                    this.addSystemLog(`❌ Connection failed: ${error.message}`);
-                    alert(`❌ API connection failed. Ensure the Space is running. Error: ${error.message}`);
-                    this.elements.videoFile.disabled = true;
+                    console.error('Error:', error);
+                    statusDot.className = 'status-dot error';
+                    statusText.textContent = `Error: ${error.message}`;
+                    analyzeBtn.disabled = false;
+                    
+                    // Show error in results
+                    resultsContainer.innerHTML = `
+                        <div class="result-item">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Error</h4>
+                            <p>${error.message}</p>
+                            <p>Please check that your Hugging Face Space is running and accessible.</p>
+                        </div>
+                    `;
                 }
-            }
+            });
             
-            async handleFileSelect(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-
-                this.resetUIForNewAnalysis();
-                this.currentFile = file;
-                this.displayVideoPreview(URL.createObjectURL(file));
-                this.addSystemLog(`📁 Video file selected: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+            function displayResults(data) {
+                // Clear previous results
+                resultsContainer.innerHTML = '';
                 
-                this.uploadFileInChunks();
-            }
-
-            async uploadFileInChunks() {
-                const file = this.currentFile;
-                const totalChunks = Math.ceil(file.size / this.CHUNK_SIZE);
-                const fileId = this.uuidv4();
-                
-                this.showProgress(0);
-                this.addSystemLog(`Preparing to upload ${totalChunks} chunks...`);
-
-                try {
-                    for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
-                        const start = chunkIndex * this.CHUNK_SIZE;
-                        const end = Math.min(start + this.CHUNK_SIZE, file.size);
-                        const chunk = file.slice(start, end);
-
-                        const formData = new FormData();
-                        formData.append('chunk', chunk);
-                        formData.append('chunkIndex', chunkIndex);
-                        formData.append('totalChunks', totalChunks);
-                        formData.append('fileId', fileId);
-                        formData.append('filename', file.name);
-
-                        this.updateStatus(`Uploading chunk ${chunkIndex + 1} of ${totalChunks}...`, 'active');
-                        
-                        const response = await fetch(`${this.API_URL}/upload/chunk`, { method: 'POST', body: formData });
-                        
-                        if (!response.ok) throw new Error(`Chunk ${chunkIndex + 1} upload failed.`);
-                        
-                        const data = await response.json();
-                        const uploadProgress = (data.chunk_index + 1) / data.total_chunks * 100;
-                        this.showProgress(uploadProgress * 0.5);
-
-                        if (data.job_id) {
-                            this.jobId = data.job_id;
-                            this.addSystemLog(`✅ All chunks uploaded. Job ID: ${this.jobId}`);
-                            this.updateStatus('Processing video...', 'active');
-                            this.pollForStatus();
-                            break;
-                        }
-                    }
-                } catch (error) {
-                    console.error('Upload error:', error);
-                    this.updateStatus('Upload failed', 'error');
-                    this.addSystemLog(`❌ Upload failed: ${error.message}`);
-                    this.hideProgress();
-                }
-            }
-
-            pollForStatus() {
-                this.pollingInterval = setInterval(async () => {
-                    if (!this.jobId) return clearInterval(this.pollingInterval);
-
-                    try {
-                        const response = await fetch(`${this.API_URL}/status/${this.jobId}`);
-                        if (!response.ok) throw new Error(`Status check failed.`);
-                        
-                        const data = await response.json();
-                        
-                        this.updateStatus(`Processing... ${Math.round(data.progress)}%`, 'active');
-                        this.showProgress(50 + (data.progress * 0.5));
-
-                        if (data.logs) {
-                            data.logs.forEach(log => this.addSystemLog(log));
-                        }
-
-                        if (data.status === 'completed') {
-                            clearInterval(this.pollingInterval);
-                            this.updateStatus('Analysis complete!', 'active');
-                            this.showProgress(100);
-                            this.addSystemLog('✅ Video analysis completed successfully!');
-                            this.displayAnalysisResults(data.analysis_summary);
-                            this.displayDownloadLink();
-                        } else if (data.status === 'failed') {
-                            clearInterval(this.pollingInterval);
-                            this.updateStatus('Analysis failed', 'error');
-                            this.addSystemLog(`❌ Analysis failed: ${data.error || 'Unknown error'}`);
-                        }
-                    } catch (error) {
-                        clearInterval(this.pollingInterval);
-                        this.updateStatus('Connection lost', 'error');
-                        this.addSystemLog(`⚠️ Connection error during status check: ${error.message}`);
-                    }
-                }, 2000);
-            }
-
-            resetUIForNewAnalysis() {
-                if (this.pollingInterval) clearInterval(this.pollingInterval);
-                this.jobId = null;
-                this.displayedLogs.clear();
-                
-                const placeholders = {
-                    systemLogs: 'System logs will appear here...',
-                    securityAlerts: '🚨 Theft alerts will appear here.',
-                    ownershipSummary: '✅ Ownerships will be summarized here.'
-                };
-                
-                for (const key in placeholders) {
-                    this.elements[key].innerHTML = `<div class="results-placeholder"><p>${placeholders[key]}</p></div>`;
+                if (!data || data.length === 0) {
+                    resultsContainer.innerHTML = `
+                        <div class="result-item">
+                            <h4><i class="fas fa-info-circle"></i> No results</h4>
+                            <p>The analysis did not return any results.</p>
+                        </div>
+                    `;
+                    return;
                 }
                 
-                this.hideProgress();
-            }
-
-            updateStatus(text, status) {
-                this.elements.statusText.textContent = text;
-                this.elements.statusIndicator.className = `status-indicator status-${status}`;
-            }
-
-            addSystemLog(message) {
-                if (this.displayedLogs.has(message)) return;
-                this.displayedLogs.add(message);
-
-                if (this.elements.systemLogs.querySelector('.results-placeholder')) {
-                    this.elements.systemLogs.innerHTML = '';
-                }
-
-                const logEntry = document.createElement('div');
-                logEntry.className = 'log-entry';
-                const timestamp = new Date().toLocaleTimeString();
-                logEntry.innerHTML = `<div class="log-timestamp">[${timestamp}]</div><div>${message}</div>`;
-                
-                this.elements.systemLogs.appendChild(logEntry);
-                this.elements.systemLogs.scrollTop = this.elements.systemLogs.scrollHeight;
-            }
-
-            displayVideoPreview(videoUrl) {
-                this.elements.videoContainer.innerHTML = '';
-                const video = document.createElement('video');
-                video.src = videoUrl;
-                video.controls = true;
-                video.className = 'video-element';
-                this.elements.videoContainer.appendChild(video);
-            }
-
-            displayAnalysisResults(summary) {
-                if (!summary) return this.addSystemLog("⚠️ Analysis summary not available.");
-
-                const alertsContainer = this.elements.securityAlerts;
-                alertsContainer.innerHTML = '';
-                if (summary.theft_events && summary.theft_events.length > 0) {
-                    summary.theft_events.forEach(event => {
-                        const alertDiv = document.createElement('div');
-                        alertDiv.className = 'alert-item';
-                        alertDiv.innerHTML = `
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <strong style="color: #c53030; font-size: 1.1rem;">🚨 THEFT DETECTED</strong>
-                                <span style="font-size: 0.9rem;">Frame ${event.frame}</span>
-                            </div>
-                            <p><strong>Suspect:</strong> Person ${event.thief_id}</p>
-                            <p><strong>Victim:</strong> Person ${event.victim_id}</p>
-                            <p><strong>Object ID:</strong> ${event.object_id}</p>
+                // Handle different response formats
+                if (data.data && Array.isArray(data.data)) {
+                    // Handle Hugging Face API response format
+                    data.data.forEach((item, index) => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'result-item';
+                        
+                        let confidence = 0;
+                        let label = 'Unknown';
+                        
+                        if (item.confidence) {
+                            confidence = item.confidence;
+                            label = item.label || 'Result';
+                        } else if (item.score) {
+                            confidence = item.score;
+                            label = item.label || 'Result';
+                        }
+                        
+                        resultItem.innerHTML = `
+                            <h4><i class="fas fa-result"></i> ${label}</h4>
+                            <p>Confidence: ${(confidence * 100).toFixed(2)}%</p>
                             <div class="confidence-bar">
-                                <div class="confidence-fill" style="width: ${event.confidence * 100}%"></div>
+                                <div class="confidence-fill" style="width: ${confidence * 100}%"></div>
                             </div>
-                            <small>Confidence: ${(event.confidence * 100).toFixed(1)}%</small>
                         `;
-                        alertsContainer.appendChild(alertDiv);
-                        this.playAlarmSound();
+                        
+                        resultsContainer.appendChild(resultItem);
                     });
                 } else {
-                    alertsContainer.innerHTML = '<div class="results-placeholder"><p>✅ No theft incidents detected.</p></div>';
-                }
-
-                const ownershipContainer = this.elements.ownershipSummary;
-                ownershipContainer.innerHTML = '';
-                if (summary.ownership_summary && summary.ownership_summary.length > 0) {
-                     summary.ownership_summary.forEach(item => {
-                        const ownerDiv = document.createElement('div');
-                        ownerDiv.className = 'ownership-item';
-                        ownerDiv.innerHTML = `
-                            <strong style="color: #2f855a;">🤝 Ownership Established</strong>
-                            <p><strong>Owner:</strong> Person ${item.owner_id}</p>
-                            <p><strong>Object ID:</strong> ${item.object_id}</p>
-                            <div class="confidence-bar">
-                                <div class="confidence-fill" style="width: ${item.confidence * 100}%"></div>
-                            </div>
-                            <small>Confidence: ${(item.confidence * 100).toFixed(1)}% (over ${item.frames_confirmed} frames)</small>
+                    // Handle other response formats
+                    for (const [key, value] of Object.entries(data)) {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'result-item';
+                        
+                        resultItem.innerHTML = `
+                            <h4><i class="fas fa-result"></i> ${key}</h4>
+                            <p>${JSON.stringify(value)}</p>
                         `;
-                        ownershipContainer.appendChild(ownerDiv);
-                     });
-                } else {
-                    ownershipContainer.innerHTML = '<div class="results-placeholder"><p>ℹ️ No stable ownerships were established.</p></div>';
+                        
+                        resultsContainer.appendChild(resultItem);
+                    }
                 }
             }
             
-            displayDownloadLink() {
-                const downloadUrl = `${this.API_URL}/download/${this.jobId}`;
-                
-                const downloadSection = document.createElement('div');
-                downloadSection.style.cssText = `margin-top: 1rem; padding: 1rem; background: #f0fff4; border-radius: 8px; border: 1px solid #9ae6b4;`;
-                
-                downloadSection.innerHTML = `
-                    <h4 style="color: #2f855a; margin-bottom: 0.5rem;">Download Processed Video</h4>
-                    <a href="${downloadUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-success">⬇️ Download Video</a>
-                    <button id="cleanupBtn" class="btn btn-secondary">🗑️ Clean Up Files</button>
-                `;
-
-                this.elements.systemLogs.appendChild(downloadSection);
-
-                document.getElementById('cleanupBtn').addEventListener('click', async () => {
-                    try {
-                        await fetch(`${this.API_URL}/cleanup/${this.jobId}`, { method: 'DELETE' });
-                        this.addSystemLog('👍 Server files cleaned up successfully.');
-                        downloadSection.innerHTML = '<p>Files have been cleaned up.</p>';
-                    } catch (e) {
-                        this.addSystemLog('⚠️ Could not clean up files. They will be removed automatically later.');
-                    }
-                });
-            }
-
-            showProgress(percentage) {
-                this.elements.progressBar.style.display = 'block';
-                this.elements.progressFill.style.width = `${percentage}%`;
-            }
-
-            hideProgress() {
-                this.elements.progressBar.style.display = 'none';
-                this.elements.progressFill.style.width = '0%';
-            }
-
-            testAlarm() {
-                this.addSystemLog('🔊 Testing alarm sound...');
-                this.playAlarmSound();
-            }
-
-            playAlarmSound() {
-                this.elements.alarmSound.currentTime = 0;
-                this.elements.alarmSound.play().catch(e => console.warn("Could not play sound:", e));
-            }
+            // Test connection on load
+            statusText.textContent = 'Testing connection to Hugging Face Space...';
             
-            uuidv4() {
-                return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-                );
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            window.app = new TheftDetectionApp();
+            fetch(API_URL + '/api/status')
+                .then(response => {
+                    if (response.ok) {
+                        statusDot.className = 'status-dot active';
+                        statusText.textContent = 'Connected to Hugging Face Space!';
+                    } else {
+                        throw new Error('Space not responding');
+                    }
+                })
+                .catch(error => {
+                    statusDot.className = 'status-dot error';
+                    statusText.textContent = 'Connection failed. Make sure your Space is running.';
+                    console.error('Connection test failed:', error);
+                });
         });
     </script>
 </body>
