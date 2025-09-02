@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🛡️ AI Ownership Detection</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>🛡️ AI Theft Detection</title>
     <style>
         * {
             margin: 0;
@@ -18,19 +17,15 @@
             color: #333;
             min-height: 100vh;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         
         .container {
-            width: 100%;
-            max-width: 900px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
             border-radius: 15px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            margin: 20px 0;
         }
         
         header {
@@ -52,8 +47,8 @@
         
         .main-content {
             padding: 30px;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 25px;
         }
         
@@ -64,6 +59,7 @@
             text-align: center;
             transition: all 0.3s;
             background: #f8f9ff;
+            grid-column: 1 / -1;
         }
         
         .upload-section:hover {
@@ -75,11 +71,6 @@
             font-size: 3.5rem;
             color: #4b6cb7;
             margin-bottom: 15px;
-        }
-        
-        .upload-text {
-            margin-bottom: 20px;
-            color: #4a5568;
         }
         
         .btn {
@@ -95,6 +86,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            margin: 5px;
         }
         
         .btn:hover {
@@ -119,7 +111,6 @@
             background: #f7fafc;
             border-radius: 10px;
             padding: 20px;
-            margin-top: 20px;
         }
         
         .results-placeholder {
@@ -158,6 +149,7 @@
             padding: 15px;
             background: #f7fafc;
             border-radius: 8px;
+            grid-column: 1 / -1;
         }
         
         .status-dot {
@@ -188,6 +180,7 @@
             padding: 15px;
             margin-top: 20px;
             font-size: 0.9rem;
+            grid-column: 1 / -1;
         }
         
         .api-url {
@@ -197,27 +190,33 @@
             border-radius: 4px;
             word-break: break-all;
         }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-shield-alt"></i> AI Ownership Detection</h1>
+            <h1>🛡️ AI Ownership Detection</h1>
             <p>Detect AI-generated content and verify ownership</p>
         </header>
         
         <div class="main-content">
             <div class="upload-section">
                 <div class="upload-icon">
-                    <i class="fas fa-cloud-upload-alt"></i>
+                    <i>📁</i>
                 </div>
-                <h2 class="upload-text">Upload Content for Analysis</h2>
+                <h2>Upload Content for Analysis</h2>
                 <input type="file" id="fileInput" class="file-input" accept=".txt,.pdf,.jpg,.jpeg,.png">
                 <button class="btn" id="selectFileBtn">
-                    <i class="fas fa-file"></i> Select File
+                    Select File
                 </button>
                 <button class="btn btn-success" id="analyzeBtn" disabled>
-                    <i class="fas fa-search"></i> Analyze Content
+                    Analyze Content
                 </button>
             </div>
             
@@ -228,16 +227,24 @@
             
             <div class="api-info">
                 <p><strong>Connected to:</strong></p>
-                <p class="api-url" id="apiUrl">https://mozzic-ai-ownership-detection.hf.space</p>
-                <p>This interface is now connected to your Hugging Face Space for AI ownership detection.</p>
+                <div class="api-url" id="apiUrl">https://mozzic-ai-ownership-detection.hf.space</div>
+                <p>This interface is connected to your Hugging Face Space for AI ownership detection.</p>
             </div>
             
             <div class="results-section">
-                <h3><i class="fas fa-list"></i> Analysis Results</h3>
+                <h3>Analysis Results</h3>
                 <div id="resultsContainer">
                     <div class="results-placeholder">
-                        <i class="fas fa-inbox" style="font-size: 3rem; margin-bottom: 15px;"></i>
                         <p>Analysis results will appear here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-section">
+                <h3>System Logs</h3>
+                <div id="logsContainer">
+                    <div class="results-placeholder">
+                        <p>System logs will appear here</p>
                     </div>
                 </div>
             </div>
@@ -256,6 +263,7 @@
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
             const resultsContainer = document.getElementById('resultsContainer');
+            const logsContainer = document.getElementById('logsContainer');
             
             let selectedFile = null;
             
@@ -267,6 +275,7 @@
                     selectedFile = event.target.files[0];
                     analyzeBtn.disabled = false;
                     statusText.textContent = `File selected: ${selectedFile.name}`;
+                    addLog(`File selected: ${selectedFile.name}`);
                 }
             });
             
@@ -277,6 +286,7 @@
                 statusDot.className = 'status-dot active';
                 statusText.textContent = 'Analyzing content...';
                 analyzeBtn.disabled = true;
+                addLog('Starting analysis...');
                 
                 try {
                     // Create form data
@@ -284,6 +294,7 @@
                     formData.append('file', selectedFile);
                     
                     // Make request to Hugging Face API
+                    addLog('Sending request to Hugging Face Space...');
                     const response = await fetch(API_URL + '/api/predict', {
                         method: 'POST',
                         body: formData
@@ -294,6 +305,7 @@
                     }
                     
                     const data = await response.json();
+                    addLog('Analysis complete!');
                     
                     // Display results
                     displayResults(data);
@@ -307,11 +319,12 @@
                     statusDot.className = 'status-dot error';
                     statusText.textContent = `Error: ${error.message}`;
                     analyzeBtn.disabled = false;
+                    addLog(`Error: ${error.message}`);
                     
                     // Show error in results
                     resultsContainer.innerHTML = `
                         <div class="result-item">
-                            <h4><i class="fas fa-exclamation-triangle"></i> Error</h4>
+                            <h4>Error</h4>
                             <p>${error.message}</p>
                             <p>Please check that your Hugging Face Space is running and accessible.</p>
                         </div>
@@ -323,10 +336,10 @@
                 // Clear previous results
                 resultsContainer.innerHTML = '';
                 
-                if (!data || data.length === 0) {
+                if (!data || (Array.isArray(data) && data.length === 0)) {
                     resultsContainer.innerHTML = `
                         <div class="result-item">
-                            <h4><i class="fas fa-info-circle"></i> No results</h4>
+                            <h4>No results</h4>
                             <p>The analysis did not return any results.</p>
                         </div>
                     `;
@@ -352,7 +365,7 @@
                         }
                         
                         resultItem.innerHTML = `
-                            <h4><i class="fas fa-result"></i> ${label}</h4>
+                            <h4>${label}</h4>
                             <p>Confidence: ${(confidence * 100).toFixed(2)}%</p>
                             <div class="confidence-bar">
                                 <div class="confidence-fill" style="width: ${confidence * 100}%"></div>
@@ -368,7 +381,7 @@
                         resultItem.className = 'result-item';
                         
                         resultItem.innerHTML = `
-                            <h4><i class="fas fa-result"></i> ${key}</h4>
+                            <h4>${key}</h4>
                             <p>${JSON.stringify(value)}</p>
                         `;
                         
@@ -377,14 +390,31 @@
                 }
             }
             
+            function addLog(message) {
+                if (logsContainer.querySelector('.results-placeholder')) {
+                    logsContainer.innerHTML = '';
+                }
+                
+                const logEntry = document.createElement('div');
+                logEntry.className = 'result-item';
+                logEntry.innerHTML = `
+                    <div>${new Date().toLocaleTimeString()}: ${message}</div>
+                `;
+                
+                logsContainer.appendChild(logEntry);
+                logsContainer.scrollTop = logsContainer.scrollHeight;
+            }
+            
             // Test connection on load
             statusText.textContent = 'Testing connection to Hugging Face Space...';
+            addLog('Testing connection to Hugging Face Space...');
             
             fetch(API_URL + '/api/status')
                 .then(response => {
                     if (response.ok) {
                         statusDot.className = 'status-dot active';
                         statusText.textContent = 'Connected to Hugging Face Space!';
+                        addLog('Connection successful! Space is ready.');
                     } else {
                         throw new Error('Space not responding');
                     }
@@ -392,6 +422,7 @@
                 .catch(error => {
                     statusDot.className = 'status-dot error';
                     statusText.textContent = 'Connection failed. Make sure your Space is running.';
+                    addLog('Connection failed. Make sure your Space is running.');
                     console.error('Connection test failed:', error);
                 });
         });
